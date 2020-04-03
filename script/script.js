@@ -93,7 +93,7 @@ window.addEventListener('DOMContentLoaded', () => {
       successMessage = 'Спасибо! Мы скоро с вами свяжемся!';
 
     const statusMessage = document.createElement('div');
-      statusMessage.style.cssText = 'font-size: 2rem; color:#3c763d';
+      statusMessage.style.cssText = 'font-size: 2rem; color: black';
     
     forms.forEach((item) =>{
       item.addEventListener('submit', (event) => {
@@ -104,7 +104,7 @@ window.addEventListener('DOMContentLoaded', () => {
         const formData = new FormData(item);
 
         let body = {};
-        formData.forEach((key, val) => {
+        formData.forEach((val, key) => {
           body[key] = val;
         });
         postData(body)
