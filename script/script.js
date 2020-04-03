@@ -47,6 +47,26 @@ window.addEventListener('DOMContentLoaded', () => {
     });
   };
   popupTwo();
+  //popup-consultation
+  const popupThree = () =>{
+    const popupConsultation = document.querySelector('.popup-consultation'),
+      consultationBtn = document.querySelector('.consultation-btn');
+    consultationBtn.addEventListener('click', () =>{
+      popupConsultation.style.display = 'block';
+    });
+    popupConsultation.addEventListener('click', () =>{
+      let target = event.target;
+      if(target.classList.contains('popup-close')){
+        popupConsultation.style.display = 'none';
+      } else {
+        target = target.closest('.popup-content');
+        if(!target){
+          popupConsultation.style.display = 'none';
+        }
+      }
+    });
+  };
+  popupThree();
   //валидация
   const valid = () =>{
     const formInputs = document.querySelectorAll('form input');
@@ -73,7 +93,7 @@ window.addEventListener('DOMContentLoaded', () => {
       successMessage = 'Спасибо! Мы скоро с вами свяжемся!';
 
     const statusMessage = document.createElement('div');
-      statusMessage.style.cssText = 'font-size: 2rem; color: white';
+      statusMessage.style.cssText = 'font-size: 2rem; color:#3c763d';
     
     forms.forEach((item) =>{
       item.addEventListener('submit', (event) => {
@@ -129,24 +149,4 @@ window.addEventListener('DOMContentLoaded', () => {
       elem.value = '';
     });
   };
-  //popup-consultation
-  const popupThree = () =>{
-    const popupConsultation = document.querySelector('.popup-consultation'),
-      consultationBtn = document.querySelector('.consultation-btn');
-    consultationBtn.addEventListener('click', () =>{
-      popupConsultation.style.display = 'block';
-    });
-    popupConsultation.addEventListener('click', () =>{
-      let target = event.target;
-      if(target.classList.contains('popup-close')){
-        popupConsultation.style.display = 'none';
-      } else {
-        target = target.closest('.popup-content');
-        if(!target){
-          popupConsultation.style.display = 'none';
-        }
-      }
-    });
-  };
-  popupThree();
 });
