@@ -47,4 +47,106 @@ window.addEventListener('DOMContentLoaded', () => {
     });
   };
   popupTwo();
+  //валидация
+  const valid = () =>{
+    const formInputs = document.querySelectorAll('form input');
+    
+    formInputs.forEach((elem) => {
+      elem.addEventListener('input', () =>{
+        let target = event.target;
+        let targetAttr = target.getAttribute('name');
+          if(targetAttr === 'user_phone'){
+            target.value = target.value.replace (/[^\+\d]/g, '');
+          } else if (targetAttr === 'user_name' || targetAttr === 'user_quest'){
+            target.value = target.value.replace (/[^а-яё\s]/ig, '');
+          }
+      });
+    });
+  };
+  valid();
+  //send-ajax-form
+  const sendForm = () =>{
+    const forms = document.querySelectorAll('form');
+    
+    const errorMessage = 'Что-то пошло не так...',
+      loadMessage = 'Загрузка...',
+      successMessage = 'Спасибо! Мы скоро с вами свяжемся!';
+
+    const statusMessage = document.createElement('div');
+      statusMessage.style.cssText = 'font-size: 2rem; color: white';
+    
+    forms.forEach((item) =>{
+      item.addEventListener('submit', (event) => {
+        event.preventDefault();
+        item.appendChild(statusMessage);
+        statusMessage.textContent = loadMessage;
+        
+        const formData = new FormData(item);
+
+        let body = {};
+        formData.forEach((key, val) => {
+          body[key] = val;
+        });
+        postData(body)
+         .then((response) => {
+            if(response.status !== 200){
+              throw new Error('status network not 200');
+            }
+            console.log(response); 
+          }) 
+          .then(() =>{            
+            statusMessage.textContent = successMessage;
+            reset();
+            setTimeout(()=>{
+              statusMessage.remove();
+            },5000);
+          })         
+          .catch((error) => { 
+            statusMessage.textContent = errorMessage;
+            setTimeout(()=>{
+              statusMessage.remove();
+            },5000);
+            console.log(error);          
+          });
+      });
+    });
+    const postData = (body) =>{
+      return fetch('./server.php', {
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/json'
+        },
+        body: JSON.stringify(body),
+        credentials: 'include'
+      });
+    };
+  }; 
+  sendForm();
+  //отчистка форм после отправки
+  const reset = () =>{
+    const allInputs = document.querySelectorAll('input');
+    allInputs.forEach((elem) => {
+      elem.value = '';
+    });
+  };
+  //popup-consultation
+  const popupThree = () =>{
+    const popupConsultation = document.querySelector('.popup-consultation'),
+      consultationBtn = document.querySelector('.consultation-btn');
+    consultationBtn.addEventListener('click', () =>{
+      popupConsultation.style.display = 'block';
+    });
+    popupConsultation.addEventListener('click', () =>{
+      let target = event.target;
+      if(target.classList.contains('popup-close')){
+        popupConsultation.style.display = 'none';
+      } else {
+        target = target.closest('.popup-content');
+        if(!target){
+          popupConsultation.style.display = 'none';
+        }
+      }
+    });
+  };
+  popupThree();
 });
