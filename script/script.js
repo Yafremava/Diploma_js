@@ -87,6 +87,20 @@ window.addEventListener('DOMContentLoaded', () => {
     }); 
   };
   popupFour();
+   //add-sentence-btn
+  const addSentence = () => {
+    const addSentenceBtn = document.querySelector('.add-sentence-btn'),
+      divRows = document.querySelectorAll("div.row"),
+      addBlocks = divRows[4].querySelectorAll('div');
+    
+    addSentenceBtn.addEventListener('click', () =>{
+      addSentenceBtn.style.display = 'none';
+      addBlocks[9].classList.remove('visible-sm-block');
+      addBlocks[12].classList.remove('hidden');
+      addBlocks[15].classList.remove('hidden');
+    });
+  };
+  addSentence();
   //валидация
   const valid = () =>{
     const formInputs = document.querySelectorAll('form input');
@@ -168,18 +182,4 @@ window.addEventListener('DOMContentLoaded', () => {
       elem.value = '';
     });
   };
-  //add-sentence-btn
-  const addBlocks = () => {
-    const addSentenceBtn = document.querySelector('.add-sentence-btn'),
-      divRows = document.querySelectorAll("div.row"),
-      addBlocks = divRows[4].querySelectorAll('div');
-    
-    addSentenceBtn.addEventListener('click', () =>{
-      addSentenceBtn.style.display = 'none';
-      addBlocks[9].classList.remove('visible-sm-block');
-      addBlocks[12].classList.remove('hidden');
-      addBlocks[15].classList.remove('hidden');
-    });
-  };
-  addBlocks();
 });
