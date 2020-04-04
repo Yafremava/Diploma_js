@@ -67,6 +67,26 @@ window.addEventListener('DOMContentLoaded', () => {
     });
   };
   popupThree();
+  //popup-check 
+  const popupFour = () =>{
+    const checkBtn = document.querySelector('.check-btn'),
+      popupCheck = document.querySelector('.popup-check ');
+    checkBtn.addEventListener('click', () =>{
+      popupCheck.style.display = 'block';
+    });
+    popupCheck.addEventListener('click', () =>{
+      let target = event.target;
+      if(target.classList.contains('popup-close')){
+        popupCheck.style.display = 'none';
+      } else {
+        target = target.closest('.popup-content');
+        if(!target){
+          popupCheck.style.display = 'none';
+        }
+      }
+    }); 
+  };
+  popupFour();
   //валидация
   const valid = () =>{
     const formInputs = document.querySelectorAll('form input');
@@ -148,4 +168,18 @@ window.addEventListener('DOMContentLoaded', () => {
       elem.value = '';
     });
   };
+  //add-sentence-btn
+  const addBlocks = () => {
+    const addSentenceBtn = document.querySelector('.add-sentence-btn'),
+      divRows = document.querySelectorAll("div.row"),
+      addBlocks = divRows[4].querySelectorAll('div');
+    
+    addSentenceBtn.addEventListener('click', () =>{
+      addSentenceBtn.style.display = 'none';
+      addBlocks[9].classList.remove('visible-sm-block');
+      addBlocks[12].classList.remove('hidden');
+      addBlocks[15].classList.remove('hidden');
+    });
+  };
+  addBlocks();
 });
