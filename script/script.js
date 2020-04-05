@@ -182,4 +182,23 @@ window.addEventListener('DOMContentLoaded', () => {
       elem.value = '';
     });
   };
+  //аккордеон
+  const question = () => {
+    const accordionTwo = document.querySelector('#accordion-two'),
+      title = accordionTwo.querySelectorAll('.panel-heading'),
+      content = accordionTwo.querySelectorAll('.panel-collapse');
+      
+    for(let i = 0; i < title.length; i++){
+      title[i].addEventListener('click',() =>{   
+        content.forEach((elem)=>{
+          if(elem.classList.contains('in')){
+            elem.classList.remove('in');
+          }
+        });
+        content[i].classList.toggle('in');
+      });
+    }
+
+  }; 
+  question();
 });
