@@ -182,23 +182,61 @@ window.addEventListener('DOMContentLoaded', () => {
       elem.value = '';
     });
   };
-  //аккордеон
+  //аккордеон два
   const question = () => {
     const accordionTwo = document.querySelector('#accordion-two'),
       title = accordionTwo.querySelectorAll('.panel-heading'),
       content = accordionTwo.querySelectorAll('.panel-collapse');
-      
+ 
     for(let i = 0; i < title.length; i++){
-      title[i].addEventListener('click',() =>{   
+      title[i].addEventListener('click', function() {   
         content.forEach((elem)=>{
           if(elem.classList.contains('in')){
             elem.classList.remove('in');
           }
         });
-        content[i].classList.toggle('in');
+        this.nextElementSibling.classList.toggle('in');
       });
-    }
-
+    } 
   }; 
   question();
+  //аккордион 1
+  const accordionOne = () =>{
+    const accordion = document.querySelector('#accordion'),
+      title = accordion.querySelectorAll('.panel-heading'),
+      content = accordion.querySelectorAll('.panel-collapse'),
+      buttons = accordion.querySelectorAll('.button');
+      
+      for(let i = 0; i < title.length; i++){
+        title[i].addEventListener('click', function() {   
+          content.forEach((elem)=>{
+            if(elem.classList.contains('in')){
+              elem.classList.remove('in');
+            }
+          });
+          console.log(this);
+          this.nextElementSibling.classList.toggle('in');
+        });
+      } 
+      
+      for(let x = 0; x < buttons.length; x++){
+        buttons[x].addEventListener('click', () => { 
+          for(let x = 0; x < content.length; x++){
+            if(content[x].classList.contains('in')){
+              content[x].classList.remove('in');
+            }
+          }
+          content[x + 1].classList.add('in');
+        });
+      } 
+  };
+  accordionOne();
+  //калькулятор
+  const calc = ()=>{
+    const onoffswitch = document.querySelectorAll('.onoffswitch');
+    const oneBtn = onoffswitch[0];
+    const twoBtn = onoffswitch[1];
+    
+  };
+  calc();
 });
