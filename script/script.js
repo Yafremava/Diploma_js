@@ -214,28 +214,102 @@ window.addEventListener('DOMContentLoaded', () => {
               elem.classList.remove('in');
             }
           });
-          console.log(this);
           this.nextElementSibling.classList.toggle('in');
         });
       } 
-      
-      for(let x = 0; x < buttons.length; x++){
-        buttons[x].addEventListener('click', () => { 
+     
+      for(let i = 0; i < buttons.length; i++){
+        buttons[i].addEventListener('click', function() {       
           for(let x = 0; x < content.length; x++){
             if(content[x].classList.contains('in')){
               content[x].classList.remove('in');
             }
+            
           }
-          content[x + 1].classList.add('in');
+          content[i + 1].classList.add('in');
+          //this.nextElementSibling.classList.add('in');
+          
         });
       } 
   };
   accordionOne();
   //калькулятор
   const calc = ()=>{
-    const onoffswitch = document.querySelectorAll('.onoffswitch');
-    const oneBtn = onoffswitch[0];
-    const twoBtn = onoffswitch[1];
+    const onoffswitchCheckbox = document.querySelector('#myonoffswitch'),
+      panelCollapseTwo = document.querySelector('#collapseTwo'),
+      divs = panelCollapseTwo.querySelectorAll('div'),
+      selectBox = panelCollapseTwo.querySelectorAll('.form-control'),
+      calcResult = document.querySelector('#calc-result'),
+      onoffCheckboxTwo = document.querySelector('#myonoffswitch-two');
+      let calcResultValue = calcResult.value;
+    let startingPrice = 10000;
+    
+    const sum = ()  =>{
+      let result1 = 0;
+      let diametr1 = 1,
+        diametr2 = 1,
+        rings1 = 1,
+        rings2 = 1,
+        result2 = 0,
+        bottom1,
+        bottom2,
+        result;
+      if(onoffswitchCheckbox.checked === true){
+        startingPrice = 10000;
+        result = result1;
+        
+        calcResultValue.textContent = result; 
+        
+      }else {
+        startingPrice = 15000;
+        result = result2 + result1;
+      }
+
+      if(onoffCheckboxTwo.checked === true){
+        bottom1 = 1000;
+        bottom2 = 2000;       
+      } else {
+        bottom2 = 0;
+        bottom1 = 0;
+      }
+
+
+      if(selectBox[0].options[1].value || selectBox[2].options[1].value){
+        diametr1 = (startingPrice * 0.2);
+        diametr2 = (startingPrice * 0.2);
+        console.log(diametr2);
+        
+      }
+      if(selectBox[1].options[1].value || selectBox[3].options[1].value){
+        rings1 = startingPrice * 0.3;
+        rings2 = startingPrice * 0.3;
+        
+      }
+      if(selectBox[1].options[2].value || selectBox[3].options[2].value){
+        rings1= startingPrice * 0.5;
+        rings2= startingPrice * 0.5;
+      }
+      console.log(rings2);
+        
+
+      result2 = Math.ceil(startingPrice + diametr2 + rings2 + bottom2);
+      result1 = Math.ceil(startingPrice + diametr1 + rings1 + bottom1);
+      console.log(result2);
+      
+    };
+    sum();
+    
+    onoffswitchCheckbox.addEventListener('change', ()=>{
+      if(onoffswitchCheckbox.checked === true){
+        divs[4].style.display = 'none';
+        divs[5].style.display = 'none';
+        divs[6].style.display = 'none';  
+      } else {
+        divs[4].style.display = 'block';
+        divs[5].style.display = 'inline-block';
+        divs[6].style.display = 'inline-block';
+      }
+    });
     
   };
   calc();
